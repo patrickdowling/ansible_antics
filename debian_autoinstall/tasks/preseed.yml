@@ -1,0 +1,14 @@
+---
+
+- name: Generate preseed.cfg
+  template:
+    src: preseed.cfg.j2
+    dest: "{{ dest_dir }}/iso/preseed.cfg"
+
+# Just create a custom boot menu
+# Otherwise we'd have to append things to existing entries (adtxt.cfg)
+
+- name: Boot menu
+  template:
+    src: isolinux.cfg.j2
+    dest: "{{ dest_dir }}/iso/isolinux/isolinux.cfg"

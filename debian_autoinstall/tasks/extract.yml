@@ -1,0 +1,11 @@
+---
+- name: Extract ISO
+  shell:
+    cmd: "xorriso -osirrox on -indev {{ src_iso_path }} -extract / {{ dest_dir }}/iso"
+
+- name: Make extracted files writeable
+  file:
+    path: "{{ dest_dir }}/iso"
+    mode: "u+w"
+    recurse: yes
+    follow: no

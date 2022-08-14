@@ -1,0 +1,31 @@
+---
+- name: Download SHA512 checksums
+  get_url:
+    url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
+    dest: "{{ dest_dir }}/SHA512SUMS"
+
+- name: Extract ISO checksum
+  shell:
+    cmd: "head -1 {{ dest_dir }}/SHA512SUMS | cut -d' ' -f1"
+  changed_when: false
+  register: sha512sum
+
+- name: Find ISO filename
+  shell:
+    cmd: "head -1 {{ dest_dir }}/SHA512SUMS | cut -d' ' -f3"
+  changed_when: false
+  register: iso_filename
+
+- name: Set ISO related variables
+  set_fact:
+    src_iso_filename: "{{ iso_filename.stdout }}"
+    src_iso_path: "{{ dest_dir }}/{{ iso_filename.stdout }}"
+    dest_iso: "{{ dest_dir }}/{{ iso_label }}-{{ iso_filename.stdout }}"
+
+# NOTE: specify filename and not directory so it doesn't get downloaded every time
+- name: Download ISO
+  get_url:
+    url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/{{ src_iso_filename }}"
+    dest: "{{ src_iso_path }}"
+    checksum: "sha512:{{ sha512sum.stdout }}"
+

@@ -1,0 +1,33 @@
+---
+# Mostly blindly following
+# https://wiki.debian.org/RepackBootableISO
+# Probably also see .disk/mkisofs
+
+# We know what files are modified, so we could just update those?
+- name: Regenerate MD5sum
+  shell: |
+    cd {{ dest_dir }}/iso
+    find . -follow -type f ! -name md5sum.txt -print0 | xargs -0 md5sum > md5sum.txt
+
+- name: Extract mbr_template
+  shell: |
+    dd if={{ src_iso_path }} bs=1 count=432 of={{ dest_dir }}/isohdpfx.iso
+
+- name: Ensure ISO file is recreated
+  file:
+    path: "{{ dest_iso }}"
+    state: absent
+
+- name: Repack IO image
+  shell: >
+    xorriso -as mkisofs \
+     -V "{{ iso_label }}" \
+     -o "{{ dest_iso }}" \
+     -isohybrid-mbr "{{ dest_dir }}/isohdpfx.iso" \
+     -c isolinux/boot.cat \
+     -b isolinux/isolinux.bin \
+     -no-emul-boot \
+     -boot-load-size 4 \
+     -boot-info-table \
+     -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
+     "{{ dest_dir }}/iso"

@@ -1,0 +1,28 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: no
+
+  pre_tasks:
+    - name: Load config(s)
+      include_vars: "{{ item }}"
+      loop:
+        - config.yml
+
+    - name: Ensure dest exists
+      file:
+        path: "{{ dest_dir }}"
+        state: directory
+
+  tasks:
+    - name: Download ISO
+      import_tasks: tasks/download.yml
+
+    - name: Extract ISO
+      import_tasks: tasks/extract.yml
+
+    - name: Do the preseed thing
+      import_tasks: tasks/preseed.yml
+
+    - name: Repack ISO
+      import_tasks: tasks/repack.yml
