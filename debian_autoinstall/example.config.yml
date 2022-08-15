@@ -5,7 +5,6 @@ iso_label: "preseed"
 preseed_country: DE
 
 preseed_netcfg_interface: enp6s0
-
 preseed_hostname: <insert hostname>
 preseed_domain: <insert domain>
 
@@ -18,3 +17,6 @@ default_user_fullname: "The Admin"
 default_user_name: administrator
 default_user_password: administrator
 default_user_uid: 1000
+
+# Optional
+additional_packages: ""

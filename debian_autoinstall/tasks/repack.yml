@@ -4,10 +4,11 @@
 # Probably also see .disk/mkisofs
 
 # We know what files are modified, so we could just update those?
+# Seems like the general rule is to ignore ./isolinux/* as well.
 - name: Regenerate MD5sum
   shell: |
     cd {{ dest_dir }}/iso
-    find . -follow -type f ! -name md5sum.txt -print0 | xargs -0 md5sum > md5sum.txt
+    find . -follow -type f ! -name "md5sum.txt" ! -path "./isolinux/*" -print0 | xargs -0 md5sum > md5sum.txt
 
 - name: Extract mbr_template
   shell: |

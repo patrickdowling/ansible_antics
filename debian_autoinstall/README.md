@@ -21,6 +21,5 @@ The necessary variables should be in `config.yml` (see `example.config.yml`)
 - Figure out the partitioning
 - Step 2, preserve `/home` or other persistent partitions
 - Clean up temporary extracted image
-- Test MD5 generation is correct
 - Details of UEFI and boot menu
 - Better config/support multiple hosts
