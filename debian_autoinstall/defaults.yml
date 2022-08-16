@@ -1,0 +1,11 @@
+---
+iso_url_base: "https://cdimage.debian.org"
+iso_url: "{{ iso_url_base }}/debian-cd"
+iso_url_non_free: "{{ iso_url_base }}/cdimage/unofficial/non-free/images-including-firmware"
+
+iso_arch: "amd64"
+
+image_enable_non_free: false
+
+apt_enable_non_free: false
+apt_enable_contrib: false

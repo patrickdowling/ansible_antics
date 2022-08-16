@@ -1,7 +1,18 @@
 ---
+
+- name: ISO URL (free)
+  set_fact:
+    src_url: "{{ iso_url }}/current/{{ iso_arch }}/iso-cd"
+  when: not image_enable_non_free
+
+- name: ISO URL (non-free)
+  set_fact:
+    src_url: "{{ iso_url_non_free }}/current/{{ iso_arch }}/iso-cd"
+  when: image_enable_non_free
+
 - name: Download SHA512 checksums
   get_url:
-    url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
+    url: "{{ src_url }}/SHA512SUMS"
     dest: "{{ dest_dir }}/SHA512SUMS"
 
 - name: Extract ISO checksum
@@ -25,7 +36,7 @@
 # NOTE: specify filename and not directory so it doesn't get downloaded every time
 - name: Download ISO
   get_url:
-    url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/{{ src_iso_filename }}"
+    url: "{{ src_url }}/{{ src_iso_filename }}"
     dest: "{{ src_iso_path }}"
     checksum: "sha512:{{ sha512sum.stdout }}"
 
