@@ -9,3 +9,9 @@ image_enable_non_free: false
 
 apt_enable_non_free: false
 apt_enable_contrib: false
+
+preseed_language: "en"
+preseed_country: "US"
+preseed_locale: "en_US.UTF-8"
+
+preseed_ntp: true

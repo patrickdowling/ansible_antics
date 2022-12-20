@@ -1,6 +1,7 @@
 ---
 dest_dir: "{{ ansible_env.HOME }}/.local/debinst"
 iso_label: "preseed"
+preseed_bootdev: <disk>
 
 preseed_country: DE
 

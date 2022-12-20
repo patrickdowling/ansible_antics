@@ -8,7 +8,7 @@ Caveat: These are baby steps with Debian and Ansible, which is good for flushing
 
 ## Use
 ```
-ansible-playbook -i inventory.ini main.yml
+ansible-playbook -i main.yml
 ```
 
 The `preseed.cfg` is generated from a template based off [example-preseed.txt](https://www.debian.org/releases/bullseye/example-preseed.txt).
