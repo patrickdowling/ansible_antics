@@ -16,6 +16,9 @@ The necessary variables should be in `config.yml` (see `example.config.yml`)
 
 *NOTE* Repartitions and wipes the disk (`/dev/sda`)
 
+## Notes
+- `.yml` files use the vim modeline to set filetype to `yaml.ansible` to enable linting via ansiblels/lsp (at least in neovim that seems to work)
+
 ## TODO
 - Add ssh key
 - Figure out the partitioning

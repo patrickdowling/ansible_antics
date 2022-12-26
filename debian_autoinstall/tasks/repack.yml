@@ -32,3 +32,5 @@
      -boot-info-table \
      -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
      "{{ dest_dir }}/iso"
+
+# vim: ft=yaml.ansible

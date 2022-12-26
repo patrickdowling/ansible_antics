@@ -7,5 +7,7 @@
   file:
     path: "{{ dest_dir }}/iso"
     mode: "u+w"
-    recurse: yes
-    follow: no
+    recurse: true
+    follow: true
+
+# vim: ft=yaml.ansible

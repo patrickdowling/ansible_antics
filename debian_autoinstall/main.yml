@@ -1,7 +1,8 @@
 ---
-- hosts: all
-  gather_facts: yes
-  become: no
+- name: Play to build preseeded debian image
+  hosts: localhost
+  gather_facts: true
+  become: false
 
   pre_tasks:
     - name: Load config(s)
@@ -14,6 +15,7 @@
       file:
         path: "{{ dest_dir }}"
         state: directory
+        mode: "0744"
 
   tasks:
     - name: Download ISO
@@ -27,3 +29,5 @@
 
     - name: Repack ISO
       import_tasks: tasks/repack.yml
+
+# vim: ft=yaml.ansible
